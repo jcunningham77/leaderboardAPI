@@ -55,25 +55,19 @@ module.exports = function upload(app) {
             var matchOutcome = determineMatchOutcome(match);
             console.log("in flatmap");
             var winningPlayer = new Player({
-                name: matchOutcome[0],
-                matchesWon: 9,
-                matchesPlayed:1
-            })
+                name: matchOutcome[0]
+            });
             var losingPlayer = new Player({
-                name: matchOutcome[1],
-                matchesWon: 0,
-                matchesPlayed:1
-            })
+                name: matchOutcome[1] });
             winningPlayer._id = null;
             
-            var query = {name:winningPlayer.name};
-            var fieldsToUpdate = {name:winningPlayer.name,matchesWon:winningPlayer.matchesWon,matchesPlayed:winningPlayer.matchesPlayed};
+            var winningQuery = {name:winningPlayer.name};
+            var winningUpdateFields = {name:winningPlayer.name,$inc: { matchesWon: 1,matchesPlayed:1}};
+            var losingQuery = {name:losingPlayer.name};
+            var losingUpdateFields = {name:losingPlayer.name,$inc: { matchesWon: 0,matchesPlayed:1}};
             var options = { upsert: true ,new:true};
-            var winnerSaveObservable = Rx.Observable.fromPromise(Player.findOneAndUpdate(query,fieldsToUpdate,options,null).exec());
-            // var winnerSaveObservable = Rx.Observable.fromPromise(winningPlayer.update({name:winningPlayer.name},{ upsert: true }).exec());
-
-            // var winnerSaveObservable = Rx.Observable.fromPromise(winningPlayer.save(null));
-            var loserSaveObservable = Rx.Observable.fromPromise(losingPlayer.save());
+            var winnerSaveObservable = Rx.Observable.fromPromise(Player.findOneAndUpdate(winningQuery,winningUpdateFields,options,null).exec());
+            var loserSaveObservable = Rx.Observable.fromPromise(Player.findOneAndUpdate(losingQuery,losingUpdateFields,options,null).exec());
             return Rx.Observable.forkJoin(winnerSaveObservable,loserSaveObservable);
         });
 
