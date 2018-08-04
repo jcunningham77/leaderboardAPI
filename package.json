@@ -19,6 +19,8 @@
   "homepage": "https://github.com/jcunningham77/leaderboardAPI#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "mongoose": "^5.2.6"
+    "mongoose": "^5.2.6",
+    "rxjs": "^6.2.2",
+    "rxjs-compat": "^6.2.2"
   }
 }
