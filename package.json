@@ -1,0 +1,24 @@
+{
+  "name": "leaderboardAPI",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcunningham77/leaderboardAPI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcunningham77/leaderboardAPI/issues"
+  },
+  "homepage": "https://github.com/jcunningham77/leaderboardAPI#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.2.6"
+  }
+}
